@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Poppins:wght@400;500;600&display=swap'); 
+
+/* font-family: 'Lato', sans-serif;
+font-family: 'Poppins', sans-serif; */
+
+body{
+    background-color: #EBE9E9;
+    box-sizing: border-box;
+}
+
+.Hero-Section{
+    /* width: 1440px;
+    height: 826px; */
+    background: #FFFFFF;
+    /* background-image: linear-gradient(to bottom right, rgb(207, 225, 250), rgb(248, 244, 248)); */
+    background-image: linear-gradient(to bottom right, rgb(191, 216, 251), rgb(248, 244, 248));
+}
+
+.container{
+    width: 95%;
+    margin: auto;
+    /* align horizontal center */
+}
+
+/* design Navigation Bar */
+.navbar .group-68{
+    font-family: 'Poppins';
+    font-style: normal;
+    
+    font-size: 18px;
+    line-height: 27px;
+    /* identical to box height */
+    color: #1D1D1D;
+}
+.navbar .flex{
+    display: flex;
+    justify-content: flex-end;
+    /* padding: 5px; */
+    /* justify-content: center; */
+    align-items: center;
+}
+.navbar ul{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.navbar li{
+    display: inline-block;
+    padding: 5px;
+    margin-top: 5px;
+}
+/* .group-67  */
+.Blog{
+    font-weight: 400;
+}
+.Event{
+    font-weight: 600;
+}
+.Event a{
+    border-bottom: 2px solid black;
+}
+.About{
+    font-weight: 400;
+}
+.sign-in{
+    font-weight: 500;
+    padding: 5px;
+    border: 2px solid #1D1D1D;
+    border-radius: 18px;  
+}
+/* -------------------------------------- */
+/* .topnav .icon {
+    display: none;
+  } */
+/*-----------------------------------------------  */
+.navbar  a{
+    display: inline-block;
+    text-decoration: none;
+    color: #1D1D1D;
+    padding: 5px;
+}
+
+
+/* -----------Hover Effects---------------- */
+.navbar ul .About a:hover,
+.navbar ul .Event a:hover,
+.navbar ul .Blog a:hover{
+    border-bottom: 2px solid rgb(58, 129, 242);
+    transform: scale(.96);
+}
+.navbar .sign-in:hover{
+    border: 2px solid rgb(58, 129, 242);
+    transform: scale(.96);
+}
+
+.flex-2 .right .start:hover{
+    border: 2px solid rgb(58, 129, 242);
+    transform: scale(.98);
+}
+.flex-2 .right .mid-flex-col .up-start:hover,
+.flex-2 .right .mid-flex-col .bottom-end:hover,
+.flex-2 .right .end:hover{
+    border: 2px solid rgb(173, 41, 185);
+    transform: scale(.98);
+}
+
+.flex-2 .left h1:hover,
+.flex-2 .left div:hover{
+    text-decoration: underline solid rgb(58, 129, 242) 2px;
+    transform: scale(.98);
+}
+
+/* ---------------------------------------- */
+
+/* flex with 2 column */
+.flex-2{
+    display: flex;
+    justify-content: space-between;
+}
+.flex-2 .left{
+    flex: 2;
+    padding: 10px;
+}
+.flex-2 .right{
+    flex: 3;
+}
+
+/* properties of left side of container for heading,subheading,text */
+
+/* design heading of left side of container */
+.flex-2 .left h1{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 96px;
+    line-height: 87px;
+    /* or 91% */
+    color: #1D1D1D;
+}
+.flex-2 .left h1 span{
+    background: -webkit-linear-gradient(#83067F,#624FB7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* sub heading design */
+.flex-2 .left .next{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 64px;
+    /* or 133% */
+    color: #1D1D1D;
+}
+/* text on left side */
+.flex-2 .left .goal{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    /* or 26px */
+    color: rgba(29, 29, 29, 0.8);
+}
+
+/* right side of container:images */
+.flex-2 .right{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    /* in Y axis place its items from bottom */
+}
+.flex-2 .right .up-start{
+    align-self: end;
+}
+.flex-2 .right .start ,
+.flex-2 .right .end{
+    flex: 1;
+}
+.flex-2 .right .mid-flex-col{
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+}
+.flex-2 .right .mid-flex-col .up-start{
+    flex: 1;
+}
+.flex-2 .right .mid-flex-col .bottom-end{
+    flex: 4;
+}
+
+/*---------fit images on container--------*/
+.right .start img,
+.right .mid-flex-col .bottom-end img,
+.right .end img{
+    width: 100%;
+    height: auto;
+    /* width attribute in img tag accepts value in pixel,not %.<img width="100px" src="..." >
+    Hence validator shows error.So it's better to set width and height of img tag in css file if it's in %.Set height: auto; to keep original width:height proportion of picture. */
+}
+
+/* <img style='height: 100%; width: 100%; object-fit: contain'/> */
+.right .mid-flex-col .up-start img{
+    width: 50%;
+    height: auto;
+}
+
+
+/* -------Rsponsive design: media query for Tablet/mobile -------- */
+@media(max-width:768px){
+    .navbar .container .flex{
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar .flex{
+        flex-wrap: wrap;
+    }
+    .flex-2{
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .flex-2 .right{
+        flex-wrap: wrap;
+    }
+
+    .flex-2 .left h1{
+        font-size: 3.5rem;
+        /* 1rem=16px */
+        line-height: 3.5rem;
+    }
+    .flex-2 .left .next{
+        font-size: 2rem;
+        line-height: 2.1rem;
+        padding-bottom: 10px;
+    }
+    .flex-2 .left .goal{
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+}
+
+/* ------media query for mobile-------- */
+@media(max-width:480px){
+    .navbar .group-68{
+        font-size: 1rem;
+        line-height: 1.2rem;
+    }
+
+}
