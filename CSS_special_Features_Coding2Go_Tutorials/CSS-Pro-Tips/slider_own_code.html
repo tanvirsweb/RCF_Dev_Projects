@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      
+    body {
+        min-height: 100vh;
+        background-color: #e7e7ef;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: Poppins, sans-serif;
+        margin: 0;
+    }
+
+    .selected-image {
+        text-align: center;
+        margin-bottom: 20px;
+        height: 300px;
+    }
+
+    .selected-image img {
+        max-width: 300px;
+        max-height: 300px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+
+    .wrapper {
+        display: flex;
+        gap: 20px;
+        max-width: 1000px; /* Width of 5 cards (200px each) */
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none; 
+        /* For Firefox */
+    }
+
+    .wrapper::-webkit-scrollbar {
+        display: none; 
+        /* For Chrome, Safari, and Edge */
+    }
+
+    .card {
+        scroll-snap-align: center;
+        box-sizing: border-box;
+        padding: 20px 30px;
+        flex-shrink: 0;
+        width: 200px; /* Each card is 300px wide */
+        background-color: white;
+        border-radius: 14px;
+        text-align: center;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+    .card.selected {
+		/* transform: scale(1.3); */
+		background-color: #f0f8ff;
+		border: 2px solid #007bff;
+	}
+    </style>
+</head>
+<body>
+    <div class="selected-image">
+      <h2>Selected Card: None</h2>
+      <img src="https://www.philipkarto.wikiseo.com//wp-content/uploads/2024/11/GY_SKULL_BACK_NB_.webp" alt="Selected Image" class="preview-image" style="display: none;">
+    </div>
+  
+    <div class="wrapper">
+      <div class="card" data-index="1" data-image="https://www.philipkarto.wikiseo.com//wp-content/uploads/2024/11/GY_SKULL_BACK_NB_.webp">
+        <h2>Card 1</h2>
+        <p>Content for card 1.</p>
+      </div>
+      <div class="card" data-index="2" data-image="https://www.philipkarto.wikiseo.com//wp-content/uploads/2024/11/GY_SKULL_FRONT_NB_.webp">
+        <h2>Card 2</h2>
+        <p>Content for card 2.</p>
+      </div>
+      <div class="card" data-index="3" data-image="https://www.philipkarto.wikiseo.com//wp-content/uploads/2024/11/Main-Slider.webp">
+        <h2>Card 3</h2>
+        <p>Content for card 3.</p>
+      </div>
+      <div class="card" data-index="4" data-image="https://www.philipkarto.wikiseo.com//wp-content/uploads/2024/11/2.webp">
+        <h2>Card 4</h2>
+        <p>Content for card 4.</p>
+      </div>
+      <div class="card" data-index="5" data-image="https://www.philipkarto.wikiseo.com//wp-content/uploads/2024/11/3.webp">
+        <h2>Card 5</h2>
+        <p>Content for card 5.</p>
+      </div>
+      <div class="card" data-index="6" data-image="https://www.philipkarto.wikiseo.com//wp-content/uploads/2024/11/4.webp">
+        <h2>Card 6</h2>
+        <p>Content for card 6.</p>
+      </div>
+      <div class="card" data-index="7" data-image="https://www.philipkarto.wikiseo.com//wp-content/uploads/2024/11/GY_ROCK_FRONT_NB.webp">
+        <h2>Card 7</h2>
+        <p>Content for card 7.</p>
+      </div>
+    </div>
+  
+  
+    <script>
+    
+document.addEventListener("DOMContentLoaded", function () {
+  const wrapper = document.querySelector(".wrapper");
+  const cards = Array.from(wrapper.children);
+  const selectedImage = document.querySelector(".selected-image img");
+  const selectedTitle = document.querySelector(".selected-image h2");
+
+  let lastScrollLeft = wrapper.scrollLeft;
+
+  // Function to update the selected card
+  function updateSelectedCard(card) {
+    cards.forEach((c) => c.classList.remove("selected"));
+    card.classList.add("selected");
+
+    // Update the displayed image and title
+    const imageUrl = card.getAttribute("data-image");
+    const cardIndex = card.getAttribute("data-index");
+
+    selectedImage.src = imageUrl;
+    selectedImage.style.display = "block";
+    selectedTitle.textContent = `Selected Card: ${cardIndex}`;
+  }
+
+  // Function to center a card
+  function centerCard(card) {
+	const wrapperRect = wrapper.getBoundingClientRect();
+	const cardRect = card.getBoundingClientRect();
+
+	const wrapperCenter = wrapperRect.left + wrapperRect.width / 2;
+    const cardCenter = cardRect.left + cardRect.width/2;
+    const scrollTo = 2*(cardCenter - wrapperCenter);
+    // const wrapperCenter = wrapper.offsetWidth/2;
+    // const cardCenter = card.offsetLeft + card.offsetWidth/2;
+
+    // const scrollTo = cardCenter - wrapperCenter;
+    // // console.log(`cardCenter ${cardCenter}`);
+    // // console.log(`wrapperCenter ${wrapperCenter}`);
+    wrapper.scrollBy({ left: scrollTo, behavior: "smooth" });
+    updateSelectedCard(card);
+  }
+
+  // Center the clicked card
+  cards.forEach((card) => {
+        card.addEventListener("click", () => centerCard(card));
+    });
+
+
+  // Detect the card at the center during scrolling
+  function detectCenterCard() {
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const wrapperCenter = wrapperRect.left + wrapperRect.width / 2;
+
+    let closestCard = null;
+    let closestDistance = Infinity;
+
+    cards.forEach((card) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width/2;
+        const distance = Math.abs(wrapperCenter - cardCenter);
+
+        if (distance < closestDistance) {
+            closestDistance = distance;
+            closestCard = card;
+        }
+    });
+
+    if (closestCard) updateSelectedCard(closestCard);
+  }
+
+  // Infinite scroll logic
+  wrapper.addEventListener("scroll", () => {
+    const scrollLeft = wrapper.scrollLeft;
+
+    if (scrollLeft === 0) {
+      const lastCard = wrapper.lastElementChild;
+      wrapper.prepend(lastCard);
+      wrapper.scrollLeft += lastCard.offsetWidth + 20; // Adjust scroll position
+    } else if (scrollLeft + wrapper.offsetWidth >= wrapper.scrollWidth) {
+      const firstCard = wrapper.firstElementChild;
+      wrapper.appendChild(firstCard);
+      wrapper.scrollLeft -= firstCard.offsetWidth + 20; // Adjust scroll position
+    }
+
+    // Continuously detect the center card
+    detectCenterCard();
+
+    lastScrollLeft = scrollLeft;
+  });
+
+  // Initialize with the first card centered
+  centerCard(cards[2]);
+});
+    </script>
+  </body>
+  
+  <!-- 
+  
+Selected one should be in center of the thumbnails, not at left. 
+Please use 5 images. I am giving you the image links if needed.
+Md. Jamil
+Total images could be be more than 5.. but the thumbnail will show only 5 at once.
+  -->
+</html>
